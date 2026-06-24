@@ -5,15 +5,12 @@
 #include <iostream>
 #include <memory>
 
-
-
 class Decoder {
 public:
     Decoder() = default;
     ~Decoder() = default;
 
-
-    //Decodes the compressed binary stream and writes original characters to output.
+    // Decodes binary stream to original text
     void decode(std::istream& input, std::ostream& output);
 };
 
