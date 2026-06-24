@@ -17,7 +17,7 @@ Lossless Text Compression Engine built with C++ and Huffman Coding. Supports eff
 ## Directory Structure
 
 ```text
-LTCode
+LTC-Code
 │
 ├── include/                       # Header files
 │   ├── Compressor.h               # Abstract compressor interface
