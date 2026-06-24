@@ -4,6 +4,52 @@ Lossless Text Compression Engine built with **C++** and **Huffman Coding**. Supp
 
 ---
 
+##  Directory Structure
+
+```text
+LTCompdemo
+│
+├── include/                       # Header files
+│   ├── Compressor.h               # Abstract compressor interface
+│   ├── Decoder.h                  # Huffman decoding logic
+│   ├── Encoder.h                  # Huffman encoding logic
+│   ├── FileManager.h              # File I/O operations
+│   ├── HuffmanTree.h              # Huffman tree implementation
+│   └── Node.h                     # Tree node definition
+│
+├── src/                           # Source files
+│   ├── main.cpp                   # Application entry point
+│   ├── HuffmanCompressor.cpp      # Compression controller
+│   ├── HuffmanTree.cpp            # Huffman tree construction
+│   ├── Encoder.cpp                # Encoding implementation
+│   ├── Decoder.cpp                # Decoding implementation
+│   └── FileManager.cpp            # File handling implementation
+│
+├── public/                        # Frontend web interface
+│   ├── index.html                 # Main UI page
+│   ├── style.css                  # Styling
+│   └── app.js                     # Client-side logic
+│
+├── input/                         # Sample input files
+│   └── sample.txt
+│
+├── output/                        # Generated output files
+│   ├── compressed.huff            # Compressed output
+│   └── decompressed.txt           # Restored text
+│
+├── tests/                         # Unit tests
+│   └── test_huffman.cpp
+│
+├── temp/                          # Temporary runtime files
+│
+├── server.js                      # Node.js backend server
+├── CMakeLists.txt                 # C++ build configuration
+├── package.json                   # Node.js dependencies
+├── .gitignore                     # Ignored files
+└── README.md                      # Project documentation
+```
+---
+
 ## Architecture Diagram
 
 The system uses a clean modular architecture. The abstract interface `Compressor` defines the contract, allowing easy extensions for future formats (such as PDF, binary, or image compressors) without altering the main orchestration flow.
