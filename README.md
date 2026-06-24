@@ -180,21 +180,7 @@ classDiagram
 n = input length
 k = unique characters
 
----
 
-## Benchmark Results
-
-| File | Original | Compressed | Ratio |
-|--------|----------|------------|--------|
-| article.txt | 50 KB | 27 KB | 1.85x |
-| repetitive.txt | 100 KB | 35 KB | 2.85x |
-| source.cpp | 25 KB | 14 KB | 1.78x |
-
-Average Compression Ratio: 1.83x
-
-Average Space Reduction: 45%
-
----
 
 ## Author
 
