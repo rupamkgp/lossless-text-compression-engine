@@ -1,0 +1,25 @@
+# Build outputs
+build/
+CMakeFiles/
+Testing/
+CMakeCache.txt
+CMakeScripts/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+compile_commands.json
+
+# Binaries and compiled targets
+huffman_app
+huffman_tests
+*.dSYM/
+
+# IDE files
+.vscode/
+.idea/
+.DS_Store
+
+# Temporary inputs and outputs
+*.huff
+input/
+output/
