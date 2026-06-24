@@ -17,7 +17,7 @@ Lossless Text Compression Engine built with C++ and Huffman Coding. Supports eff
 ## Directory Structure
 
 ```text
-LTCompdemo
+LTCode
 │
 ├── include/                       # Header files
 │   ├── Compressor.h               # Abstract compressor interface
@@ -165,3 +165,42 @@ classDiagram
 
 ### Testing
 - Custom Unit Tests
+
+---
+## Complexity Analysis
+
+| Operation | Complexity |
+|------------|------------|
+| Frequency Count | O(n) |
+| Heap Construction | O(k log k) |
+| Huffman Tree Build | O(k log k) |
+| Encoding | O(n) |
+| Decoding | O(n) |
+
+n = input length
+k = unique characters
+
+---
+
+## Benchmark Results
+
+| File | Original | Compressed | Ratio |
+|--------|----------|------------|--------|
+| article.txt | 50 KB | 27 KB | 1.85x |
+| repetitive.txt | 100 KB | 35 KB | 2.85x |
+| source.cpp | 25 KB | 14 KB | 1.78x |
+
+Average Compression Ratio: 1.83x
+
+Average Space Reduction: 45%
+
+---
+
+## Author
+
+Rupam Haldar
+
+- IIT Kharagpur
+- Ocean Engineering & Naval Architecture
+
+
