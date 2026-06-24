@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lossless Text Compression Engine | Huffman Coding Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background glow gradients -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-logo">
+                <i class="fa-solid fa-file-zipper logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Lossless Text Compression Engine</h1>
+                    <p>C++17 & Node.js Huffman coding platform</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Workspace -->
+        <main class="app-main">
+            <!-- Row 1: Inputs & Operations -->
+            <div class="workspace-grid grid-2">
+                <!-- Card 1: Text & File Input -->
+                <section class="dashboard-card card-input">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-file-lines"></i> Input Workspace</h2>
+                        <div class="input-controls">
+                            <span class="char-counter" id="char-counter">0 characters</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- File Upload Dropzone -->
+                        <div id="dropzone" class="dropzone">
+                            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                            <p>Drag & drop a text file here or <span class="file-browse">browse files</span></p>
+                            <input type="file" id="file-input" class="hidden-file-input" accept=".txt,.huff">
+                        </div>
+                        
+                        <div class="divider"><span>OR PASTE TEXT</span></div>
+
+                        <!-- Large Text Input Area -->
+                        <textarea id="text-input" placeholder="Type or paste your text here to compress..."></textarea>
+
+                        <!-- Action Buttons -->
+                        <div class="btn-group">
+                            <button id="compress-btn" class="btn btn-primary">
+                                <i class="fa-solid fa-compress"></i> Compress Text
+                                <span class="loader spinner hidden"></span>
+                            </button>
+                            <button id="decompress-btn" class="btn btn-secondary" disabled>
+                                <i class="fa-solid fa-expand"></i> Decompress File
+                                <span class="loader spinner hidden"></span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Card 2: Compression Statistics & Metrics Dashboard -->
+                <section class="dashboard-card card-stats">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-chart-simple"></i> Statistics Dashboard</h2>
+                        <span id="stat-effectiveness" class="effectiveness-badge hidden">Neutral</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="stats-grid">
+                            <!-- Stat Card: Original Size -->
+                            <div class="stat-box">
+                                <div class="stat-icon"><i class="fa-solid fa-file-signature"></i></div>
+                                <div class="stat-value" id="stat-orig-size">-</div>
+                                <div class="stat-label">Original Size</div>
+                            </div>
+                            <!-- Stat Card: Compressed Size -->
+                            <div class="stat-box">
+                                <div class="stat-icon"><i class="fa-solid fa-file-zipper"></i></div>
+                                <div class="stat-value" id="stat-comp-size">-</div>
+                                <div class="stat-label">Compressed Size</div>
+                            </div>
+                            <!-- Stat Card: Compression Ratio -->
+                            <div class="stat-box accent-box">
+                                <div class="stat-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                                <div class="stat-value" id="stat-ratio">-</div>
+                                <div class="stat-label">Compression Ratio</div>
+                            </div>
+                            <!-- Stat Card: Space Reduction -->
+                            <div class="stat-box accent-box">
+                                <div class="stat-icon"><i class="fa-solid fa-percent"></i></div>
+                                <div class="stat-value" id="stat-reduction">-</div>
+                                <div class="stat-label">Space Reduction</div>
+                            </div>
+                            <!-- Stat Card: Execution Time -->
+                            <div class="stat-box">
+                                <div class="stat-icon"><i class="fa-solid fa-stopwatch"></i></div>
+                                <div class="stat-value" id="stat-time">-</div>
+                                <div class="stat-label">Execution Time</div>
+                            </div>
+                            <!-- Stat Card: Integrity Check -->
+                            <div class="stat-box" id="stat-integrity-box">
+                                <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                <div class="stat-value" id="stat-integrity">-</div>
+                                <div class="stat-label">Integrity Status</div>
+                            </div>
+                        </div>
+
+                        <!-- Download & Utility Actions -->
+                        <div class="actions-group">
+                            <button id="download-comp-btn" class="btn btn-action" disabled>
+                                <i class="fa-solid fa-file-export"></i> Download Compressed (.huff)
+                            </button>
+                            <button id="download-decomp-btn" class="btn btn-action" disabled>
+                                <i class="fa-solid fa-file-import"></i> Download Decompressed (.txt)
+                            </button>
+                            <button id="copy-bits-btn" class="btn btn-action" disabled>
+                                <i class="fa-solid fa-clipboard"></i> Copy Bitstream
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Row 3: Codes Lookup Table & Binary Bitstream Panel -->
+            <div class="workspace-grid grid-2">
+                <!-- Card 4: Codes Table -->
+                <section class="dashboard-card card-table">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-key"></i> Huffman Prefix Codes</h2>
+                    </div>
+                    <div class="card-body table-body">
+                        <div class="table-wrapper">
+                            <table id="codes-table">
+                                <thead>
+                                    <tr>
+                                        <th>Character</th>
+                                        <th>ASCII</th>
+                                        <th>Huffman Code Path</th>
+                                        <th>Code Length (bits)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="placeholder-row">
+                                        <td colspan="4">No prefix codes generated yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Card 5: Encoded Bitstream Viewer -->
+                <section class="dashboard-card card-bitstream">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-binary"></i> Encoded Binary Stream</h2>
+                    </div>
+                    <div class="card-body bitstream-body">
+                        <div id="bitstream-viewer" class="bitstream-viewer">
+                            <div class="placeholder-text">
+                                <i class="fa-solid fa-rectangle-list"></i>
+                                <p>Compressed bit sequence will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Lossless Text Compression Engine © 2026. Built with C++17, Express REST API, and D3.js visualizations.</p>
+        </footer>
+    </div>
+
+    <!-- Alert / Toast Banner -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Web Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
